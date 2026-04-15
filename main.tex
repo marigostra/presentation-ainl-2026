@@ -56,8 +56,27 @@
 \maketitle
 
 \begin{frame}
-  \frametitle{Calculation procedure}
-  \framesubtitle{Steps for classification }
+\frametitle{Morphological tagging}
+\framesubtitle{Why multi-head attention?}
+
+\begin{exampleblock}{Open dictionary}
+No methods that do not support an open dictionary were considered.
+The~model must handle unknown words.
+\end{exampleblock}
+
+\begin{exampleblock}{No RNN}
+No methods that include recurrent networks were considered.
+RNN are noticeably outdated and have many disadvantages.
+\end{exampleblock}
+
+\begin{exampleblock}{BERT is too heavy}
+BERT implies a~heavy training process, although it also contains multi-head attention inside.
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Calculation procedure}
+\framesubtitle{Steps for classification }
 
   
 \begin{enumerate}
@@ -69,26 +88,26 @@
 \item{The~resulting tensor is processed by~four transformer encoder blocks.}
 \item{The obtained encoding results are processed by a feed-forward network with ~ one hidden layer.}
 \end{enumerate}
-  \end{frame}
+\end{frame}
 
 \begin{frame}
-  \frametitle{Proposed pipeline}
-  \framesubtitle{Graphical explanation of proposed architecture}
+\frametitle{Proposed pipeline}
+\framesubtitle{Graphical explanation of proposed architecture}
 \begin{figure}[h]
 \includegraphics[width=9cm,height=5cm,keepaspectratio]{arch.pdf}
 \end{figure}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Model and training}
-  \framesubtitle{Technical details of~the~model and its training}
+\frametitle{Model and training}
+\framesubtitle{Technical details of~the~model and its training}
 
-  \begin{block}{Model}
-    The~resulting model has the~size of 195MB and has  48792985 weight parameters.
-    \end{block}
+\begin{block}{Model}
+The~resulting model has the~size of 195MB and has  48792985 weight parameters.
+\end{block}
 
-  \begin{block}{Training}
-      The~training process takes approximately 8--12 hours.
+\begin{block}{Training}
+The~training process takes approximately 8--12 hours.
 The~AdamW optimizer is used with $\lambda = 1e-5$.
 The~batch size is equal to 96.
 The training process includes 35 epochs with a change in the learning rate in three stages:
@@ -99,16 +118,16 @@ then 10 more epochs of learning rate 1e-5.
 \end{frame}
 
 \begin{frame}
-  \frametitle{Datasets}
-  \framesubtitle{  UD SynTagRus ver.~2.16 and UD Taiga ver.~2.17}
+\frametitle{Datasets}
+\framesubtitle{  UD SynTagRus ver.~2.16 and UD Taiga ver.~2.17}
 
-      \begin{columns}[T]
-      \begin{column}{0.48\textwidth}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
 
 SynTagRus samples:
   
-  \begin{itemize}
- \item { 
+\begin{itemize}
+\item { 
 Train:
 69629 sentences  total,
 1205821 words total,
@@ -116,25 +135,24 @@ average sentence length is  17.32 words
 }
 \item {
 Dev:
- 8906 sentences total,
+8906 sentences total,
 153585 words total,
 average sentence length is  17.25 words
 }
 \item {
 Test:
- 8800 sentences total,
+8800 sentences total,
 157978 words total,
 average sentence length is  17.95 words
 }
-  \end{itemize}
-      \end{column}
+\end{itemize}
+\end{column}
 
-            \begin{column}{0.48\textwidth}
-
+  \begin{column}{0.48\textwidth}
 Taiga samples:
   
 \begin{itemize}
-  \item {
+\item {
 Train:
 119407 sentences total,
 1717332 words total,
@@ -153,21 +171,17 @@ Test:
 average sentence length is 12.69 words
 }
 \end{itemize}
-            \end{column}
-            \end{columns}
-
-
-  
-
-  \end{frame}
+\end{column}
+\end{columns}
+\end{frame}
 
 \begin{frame}
-  \frametitle{Computational experiment}
-  \  framesubtitle{Accuracy, recall and other metrics for~classification}
+\frametitle{Computational experiment}
+\  framesubtitle{Accuracy, recall and other metrics for~classification}
 
-  \begin{table}[tb]
-  \centering
-  \begin{tabular}{r|ccccc}
+\begin{table}[tb]
+\centering
+\begin{tabular}{r|ccccc}
     Feature & Accuracy & \begin{tabular}{@{}c@{}} Sentence  \\ accuracy \end{tabular} & Precision & Recall & F1 \\
     \hline \\
  upos & 0.98463 & 0.77898 & 0.96833 & 0.96679 & 0.96684  \\
