@@ -9,15 +9,11 @@
 \usepackage{hyperref}
 \usepackage[normalem]{ulem}
 \usepackage{multicol}
+\usepackage{tikz} 
 
 \beamertemplatenavigationsymbolsempty
 \setbeamertemplate{footline}[frame number]
 \usecolortheme{seahorse}
-
-%% 1. Убрать номер страницы с первого слайда
-%% 2. Попробовать изменить цветовую схему на AINL
-%%
-%%
 
 %%Исправляем греческие буквы в формулах, они должны быть прямыми, а не курсивными
 \DeclareSymbolFont{greek}{U}{eur}{m}{n}                                                        
@@ -59,6 +55,12 @@
 \date{April 18, 2026}
 
 \begin{document}
+\addtobeamertemplate{frametitle}{}{%
+\begin{tikzpicture}[remember picture,overlay]
+  \node[anchor=north east, xshift=-0.15cm, yshift=-0.15cm] at (current page.north east) {%
+    \includegraphics[height=0.4cm, keepaspectratio]{ainl_logo.png}};
+\end{tikzpicture}}
+
 \maketitle
 
 
@@ -92,21 +94,6 @@ BERT implies a~heavy training process, although it also contains multi-head atte
 \end{frame}
 
 
-% \begin{frame}
-% \frametitle{Calculation procedure}
-% \framesubtitle{Steps for classification}
-% \begin{enumerate}
-% \item{The~positional encoding (RoPE) is applied to~each token.}
-% \item{The~dot product attention is calculated inside each word for~~tokens included in~the~word.}
-% \item{Calculation of~the~score of~the~tokens within the~word.}
-% \item{Thvectors of~token representation within a~single word are aggregated.}
-% \item{The~application of positional encoding is repeated once again.}
-% \item{The~resulting tensor is processed by~four transformer encoder blocks.}
-% \item{The obtained encoding results are processed by a feed-forward network with ~ one hidden layer.}
-% \end{enumerate}
-% \end{frame}
-
-
 \begin{frame}
 \frametitle{Graphical explanation of proposed architecture}
 \begin{figure}
@@ -114,16 +101,6 @@ BERT implies a~heavy training process, although it also contains multi-head atte
 \includegraphics[height=7cm,keepaspectratio]{processing_pipeline.png}
 \end{figure}
 \end{frame}
-
-
-% \begin{frame}
-% \frametitle{Proposed pipeline}
-% \framesubtitle{  Graphical explanation of proposed architecture}
-% \vspace*{0.3cm} % верхний отступ
-% \centering
-% \includegraphics[height=\dimexpr\textheight-0.8cm\relax, keepaspectratio]{processing_pipeline.png}
-% \vspace*{0.3cm} % нижний отступ
-% \end{frame}
 
 
 \begin{frame}
@@ -152,68 +129,15 @@ As an optimizer we used AdamW.
 \end{frame}
 
 
-% \begin{frame}
-% \frametitle{Datasets}
-% \framesubtitle{  UD SynTagRus ver.~2.16 and UD Taiga ver.~2.17}
-
-% \begin{columns}[T]
-% \begin{column}{0.48\textwidth}
-
-% SynTagRus samples:
-  
-% \begin{itemize}
-% \item { 
-% Train:
-% 69629 sentences  total,
-% 1205821 words total,
-% average sentence length is  17.32 words
-% }
-% \item {
-% Dev:
-% 8906 sentences total,
-% 153585 words total,
-% average sentence length is  17.25 words
-% }
-% \item {
-% Test:
-% 8800 sentences total,
-% 157978 words total,
-% average sentence length is  17.95 words
-% }
-% \end{itemize}
-% \end{column}
-
-%   \begin{column}{0.48\textwidth}
-% Taiga samples:
-  
-% \begin{itemize}
-% \item {
-% Train:
-% 119407 sentences total,
-% 1717332 words total,
-% average sentence length is  14.38 words
-% }
-% \item {
-% Dev:
-% 1260 sentences total,
-% 15624 words total,
-% average sentence length is  12.4 words
-% }
-% \item {
-% Test:
-% 1217 sentences total,
-% 15440 words total,
-% average sentence length is 12.69 words
-% }
-% \end{itemize}
-% \end{column}
-% \end{columns}
-% \end{frame}
-
-
 \begin{frame}
 \frametitle{Computational experiment}
 \framesubtitle{Accuracy, recall and other metrics for~classification}
+
+\begin{itemize}
+\item Full-word accuracy: 95.36\%
+\item vs. GRU: 93.88\% | vs. BERT: ~97.6\%
+\item Sentence-level full prediction: ~22\%
+\end{itemize}
 
 \begin{table}[tb]
 \centering
@@ -240,10 +164,10 @@ Degree & 0.99115 & 0.86345 & 0.90006 & 0.92511 & 0.90894  \\
 %Variant & 0.99930 & 0.98816 & 0.98418 & 0.99008 & 0.98686  \\
 %Number & 0.99097 & 0.86803 & 0.98990 & 0.98949 & 0.98968  \\
 Gender & 0.98663 & 0.81431 & 0.98090 & 0.97924 & 0.98000  \\
-NumForm & 0.99829 & 0.97180 & 0.94471 & 0.97535 & 0.95617  \\
-Aspect & 0.99686 & 0.94701 & 0.98643 & 0.98754 & 0.98691  \\
+% NumForm & 0.99829 & 0.97180 & 0.94471 & 0.97535 & 0.95617  \\
+% Aspect & 0.99686 & 0.94701 & 0.98643 & 0.98754 & 0.98691  \\
 Case & 0.98395 & 0.79896 & 0.96960 & 0.96860 & 0.96895  \\
-PronType & 0.99495 & 0.91836 & 0.90288 & 0.90052 & 0.89366  \\
+% PronType & 0.99495 & 0.91836 & 0.90288 & 0.90052 & 0.89366  \\
 %Tense & 0.99724 & 0.95323 & 0.97064 & 0.97289 & 0.97033  \\
 %Abbr & 0.99868 & 0.98001 & 0.84428 & 0.89351 & 0.85648  \\
 Voice & 0.99579 & 0.92929 & 0.96404 & 0.96103 & 0.96189  \\
@@ -255,10 +179,11 @@ Voice & 0.99579 & 0.92929 & 0.96404 & 0.96103 & 0.96189  \\
 \begin{frame}
 \frametitle{Conclusion}
 \begin{itemize}
-\item Individual category accuracy: 98–99\%+
-\item Full-word accuracy: 95.36\%
-\item vs. GRU: 93.88\% | vs. BERT: ~97.6\% (different category sets!)
-\item Sentence-level full prediction: ~22\%
+\item Open dictionary support
+\item Fully parallelizable (no RNNs)
+\item Trains on consumer GPUs
+\item No massive pre-training required
+\item Fast inference \& low memory consuption
 \end{itemize}
 \end{frame}
 
