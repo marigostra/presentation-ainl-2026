@@ -54,11 +54,9 @@
 \DeclareMathSymbol{\varphi}{\mathord}{greek}{"27}
 
 
-\begin{frame}[plain]{Title}
 \title{A Multi-head-based architecture for effective morphological tagging in Russian with open dictionary}
 \author{Skibin K., Pozhidaev M., Suschenko S.}
 \date{April 18, 2026}
-\end{frame}
 
 \begin{document}
 \maketitle
@@ -71,6 +69,7 @@
 \item Important for: MT, information extraction, audiobook stress positioning
 \item Closed-vocabulary models fail on unseen words
 \end{itemize}
+\end{frame}
 
 
 \begin{frame}
@@ -108,24 +107,23 @@ BERT implies a~heavy training process, although it also contains multi-head atte
 % \end{frame}
 
 
+\begin{frame}
+\frametitle{Graphical explanation of proposed architecture}
+\begin{figure}
+\centering
+\includegraphics[height=7cm,keepaspectratio]{processing_pipeline.png}
+\end{figure}
+\end{frame}
+
+
 % \begin{frame}
 % \frametitle{Proposed pipeline}
-% \framesubtitle{Graphical explanation of proposed architecture}
-% \begin{figure}
+% \framesubtitle{  Graphical explanation of proposed architecture}
+% \vspace*{0.3cm} % верхний отступ
 % \centering
-% \includegraphics[height=5cm,keepaspectratio]{processing_pipeline.png}
-% \end{figure}
+% \includegraphics[height=\dimexpr\textheight-0.8cm\relax, keepaspectratio]{processing_pipeline.png}
+% \vspace*{0.3cm} % нижний отступ
 % \end{frame}
-
-
-\begin{frame}
-\frametitle{Proposed pipeline}
-\framesubtitle{  Graphical explanation of proposed architecture}
-\vspace*{0.3cm} % верхний отступ
-\centering
-\includegraphics[height=\dimexpr\textheight-0.8cm\relax, keepaspectratio]{processing_pipeline.png}
-\vspace*{0.3cm} % нижний отступ
-\end{frame}
 
 
 \begin{frame}
@@ -136,6 +134,7 @@ BERT implies a~heavy training process, although it also contains multi-head atte
 \item Max 6 subwords per word (covers 98\% of cases)
 \item Weighted aggregation (attention-based) → Preserves prefixes/suffixes
 \end{itemize}
+\end{frame}
 
 
 \begin{frame}
@@ -250,6 +249,17 @@ PronType & 0.99495 & 0.91836 & 0.90288 & 0.90052 & 0.89366  \\
 Voice & 0.99579 & 0.92929 & 0.96404 & 0.96103 & 0.96189  \\
       \end{tabular}
 \end{table}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conclusion}
+\begin{itemize}
+\item Individual category accuracy: 98–99\%+
+\item Full-word accuracy: 95.36\%
+\item vs. GRU: 93.88\% | vs. BERT: ~97.6\% (different category sets!)
+\item Sentence-level full prediction: ~22\%
+\end{itemize}
 \end{frame}
 
 
